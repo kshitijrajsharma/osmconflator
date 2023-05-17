@@ -23,6 +23,8 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -e . 
+        pip install pytest-mock
+        pip install pytest
 
     - name: Run tests
       run: |

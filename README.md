@@ -19,9 +19,9 @@ from osmconflator import conflate_geojson
 
 geojson_str = '{"type": "FeatureCollection", "features": ... }'
 
-updated_geojson_str = conflate_geojson(geojson_str)
+conflated_geojson = conflate_geojson(geojson_str)
 
-print(updated_geojson_str)
+print(conflated_geojson)
 ```
 
 In the above example, conflate_geojson is the main function provided by OSM Conflator. It takes a GeoJSON string as input, performs conflation with OSM data, and returns an  GeoJSON string with problems of duplicate and overlapping.
