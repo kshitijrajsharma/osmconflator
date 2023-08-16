@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="osmconflator",
-    version="0.0.1",
+    version="0.0.2",
     author="Kshitij Raj Sharma",
     author_email="skshitizraj@gmail.com",
     description="A package for conflation of GeoJSON features with OSM data",

@@ -24,8 +24,18 @@ conflated_geojson = conflate_geojson(geojson_str)
 print(conflated_geojson)
 ```
 
+This output will have input features with conflated properties of duplicate and intersect (boolean) .
+
+
 In the above example, conflate_geojson is the main function provided by OSM Conflator. It takes a GeoJSON string as input, performs conflation with OSM data, and returns an  GeoJSON string with problems of duplicate and overlapping.
 
+## Options : 
+
+- Pass remove_conflated=True argument to conflate_geojson function to get clean geojson without duplicate or overlap problem.
+
+```
+my_cleaned_geojson = conflate_geojson(geojson_str,remove_conflated=True)
+```
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request. When contributing to this project, please follow the Contributing Guidelines.

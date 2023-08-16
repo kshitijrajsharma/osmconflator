@@ -11,9 +11,8 @@ def calculate_bbox(features):
     return bbox
 
 
-def conflate_features(input_features, osm_features):
+def conflate_features(input_features, osm_features, remove_conflated=False):
     osm_geometries = [shape(feature["geometry"]) for feature in osm_features]
-    conflated_features = []
 
     for input_feature in input_features:
         input_geometry = shape(input_feature["geometry"])
@@ -30,8 +29,10 @@ def conflate_features(input_features, osm_features):
                 break
 
         if duplicate or intersect:
+            # conflated features with duplicate and intersected with osm
             input_feature["properties"]["duplicate"] = duplicate
             input_feature["properties"]["intersect"] = intersect
-            conflated_features.append(input_feature)
+            if remove_conflated:
+                input_features.remove(input_feature)
 
-    return conflated_features
+    return input_features

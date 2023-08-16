@@ -41,13 +41,13 @@ def validate_geojson(geojson_str):
     return geojson
 
 
-def conflate_geojson(geojson_str):
+def conflate_geojson(geojson_str, remove_conflated=False):
     """
     Conflates the input GeoJSON with OpenStreetMap data.
 
     Args:
         geojson_str (str): Input GeoJSON string or JSON object.
-
+        remove_conflated(bool) : False by default , returns geojson which are not intersected/duplicated with osm features
     Returns:
         str: Updated GeoJSON string with conflated features.
     """
@@ -83,7 +83,9 @@ def conflate_geojson(geojson_str):
     osm_features = api.download_snapshot(snapshot_url)
     logger.info("Snapshot task completed successfully.")
     logger.info("Conflating features...")
-    geojson["features"] = conflate_features(input_features, osm_features["features"])
+    geojson["features"] = conflate_features(
+        input_features, osm_features["features"], remove_conflated
+    )
     updated_geojson_str = json.dumps(geojson)
     logger.info("GeoJSON conflation completed.")
     return updated_geojson_str
