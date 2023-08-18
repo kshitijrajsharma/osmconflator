@@ -46,7 +46,7 @@ Currently conflation for following osm features are supported :
 
 ## Example :
 
-```
+```python
 from osmconflator import conflate_geojson
 
 my_geojson = {
@@ -93,7 +93,7 @@ print(conflated_geojson)
 
 ### Output : 
 
-```
+```json
 {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"duplicate": false, "intersect": false}, "geometry": {"coordinates": [[[83.98097353206458, 28.203326601546905], [83.98097353206458, 28.203239142020323], [83.98110284724493, 28.203239142020323], [83.98110284724493, 28.203326601546905], [83.98097353206458, 28.203326601546905]]], "type": "Polygon"}}, {"type": "Feature", "properties": {"duplicate": false, "intersect": true}, "geometry": {"coordinates": [[[83.97980503615179, 28.20407835951059], [83.97980503615179, 28.204017832398932], [83.97987683972957, 28.204017832398932], [83.97987683972957, 28.20407835951059], [83.97980503615179, 28.20407835951059]]], "type": "Polygon"}}]}
 
 ```
