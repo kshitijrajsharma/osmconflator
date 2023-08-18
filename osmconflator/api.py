@@ -1,5 +1,6 @@
 import io
 import json
+import logging
 import time
 import zipfile
 
@@ -11,7 +12,12 @@ class RawDataAPI:
 
     def request_snapshot(self, geometry):
         headers = {"accept": "application/json", "Content-Type": "application/json"}
-        payload = {"geometry": json.loads(geometry)}
+        # Lets start with buildings for now
+        payload = {
+            "geometry": json.loads(geometry),
+            "filters": {"tags": {"all_geometry": {"join_or": {"building": []}}}},
+            "geometryType": ["polygon"],
+        }
         response = requests.post(
             f"{self.BASE_API_URL}/snapshot/", data=json.dumps(payload), headers=headers
         )

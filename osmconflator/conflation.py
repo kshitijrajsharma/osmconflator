@@ -71,9 +71,9 @@ def conflate_geojson(geojson_str, remove_conflated=False):
     logger.info("Calling RawData API...")
     snapshot_data = api.request_snapshot(bbox_geojson_str)
     task_link = snapshot_data["track_link"]
-    logger.info(f"Snapshot task initiated. Task link: {task_link}")
+    logger.info(f"OSM Current Snapshot task initiated")
     task_result = api.poll_task_status(task_link)
-    logger.info(f"Task result: {task_result}")
+    logger.info(f"Task result: {task_result['status']}")
     if task_result["status"] != "SUCCESS":
         raise RuntimeError(
             "Raw Data API did not respond correctly. Please try again later."
@@ -86,6 +86,5 @@ def conflate_geojson(geojson_str, remove_conflated=False):
     geojson["features"] = conflate_features(
         input_features, osm_features["features"], remove_conflated
     )
-    updated_geojson_str = json.dumps(geojson)
     logger.info("GeoJSON conflation completed.")
-    return updated_geojson_str
+    return geojson
