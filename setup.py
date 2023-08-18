@@ -1,11 +1,19 @@
+import io
+
 from setuptools import find_packages, setup
+
+with io.open("README.md", encoding="utf-8") as f:
+    readme = f.read()
 
 setup(
     name="osmconflator",
     version="0.0.3",
+    url="https://github.com/kshitijrajsharma/osmconflator",
     author="Kshitij Raj Sharma",
     author_email="skshitizraj@gmail.com",
     description="A package for conflation of GeoJSON features with OSM data",
+    long_description=readme,
+    long_description_content_type="text/markdown",
     packages=find_packages(),
     license="MIT",
     classifiers=[
