@@ -64,7 +64,7 @@ def conflate_geojson(geojson_str, remove_conflated=False):
 
     input_features = geojson["features"]
     input_bbox = calculate_bbox(input_features)
-    logger.info("Creating bounding box for input features...")
+    logger.info(f"Creating bounding box for {len(input_features)} features...")
     bbox_geometry = box(*input_bbox)
     bbox_geojson_str = json.dumps(bbox_geometry.__geo_interface__)
     api = RawDataAPI()
@@ -81,7 +81,7 @@ def conflate_geojson(geojson_str, remove_conflated=False):
 
     snapshot_url = task_result["result"]["download_url"]
     osm_features = api.download_snapshot(snapshot_url)
-    logger.info("Snapshot task completed successfully.")
+    logger.info(f"{len(osm_features['features'])} OSM features Found")
     logger.info("Conflating features...")
     geojson["features"] = conflate_features(
         input_features, osm_features["features"], remove_conflated
