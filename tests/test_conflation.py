@@ -109,9 +109,11 @@ def test_conflate_geojson(mock_raw_data_api, valid_geojson):
     assert conflated_geojson["features"][0]["properties"]["intersect"] == False
     assert conflated_geojson["features"][0]["properties"]["duplicate"] == False
     assert conflated_geojson["features"][1]["properties"]["intersect"] == True
-    assert conflated_geojson["features"][0]["properties"]["duplicate"] == False
+    assert conflated_geojson["features"][1]["properties"]["duplicate"] == False
     conflated_removed_features = conflate_geojson(valid_geojson, remove_conflated=True)
     assert len(conflated_removed_features["features"]) == 1
+    assert conflated_removed_features["features"][0]["properties"]["intersect"] == False
+    assert conflated_removed_features["features"][0]["properties"]["duplicate"] == False
 
 
 def test_conflate_geojson_invalid_geojson():

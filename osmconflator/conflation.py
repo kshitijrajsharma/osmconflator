@@ -67,13 +67,14 @@ def conflate_geojson(geojson_str, remove_conflated=False):
     logger.info(f"Creating bounding box for {len(input_features)} features...")
     bbox_geometry = box(*input_bbox)
     bbox_geojson_str = json.dumps(bbox_geometry.__geo_interface__)
+    # with open("bbox.geojson", "w") as file:
+    #     file.write(bbox_geojson_str)
     api = RawDataAPI()
-    logger.info("Calling RawData API...")
     snapshot_data = api.request_snapshot(bbox_geojson_str)
     task_link = snapshot_data["track_link"]
-    logger.info(f"OSM Current Snapshot task initiated")
+    logger.info(f"Fetching latest OSM snapshot")
     task_result = api.poll_task_status(task_link)
-    logger.info(f"Task result: {task_result['status']}")
+    logger.info(f"Fetch Task result: {task_result['status']}")
     if task_result["status"] != "SUCCESS":
         raise RuntimeError(
             "Raw Data API did not respond correctly. Please try again later."
@@ -81,10 +82,12 @@ def conflate_geojson(geojson_str, remove_conflated=False):
 
     snapshot_url = task_result["result"]["download_url"]
     osm_features = api.download_snapshot(snapshot_url)
+    # with open("osm_features.geojson", "w") as file:
+    #     file.write(json.dumps(osm_features))
     logger.info(f"{len(osm_features['features'])} OSM features Found")
     logger.info("Conflating features...")
     geojson["features"] = conflate_features(
         input_features, osm_features["features"], remove_conflated
     )
-    logger.info("GeoJSON conflation completed.")
+    logger.info("Conflation completed.")
     return geojson
