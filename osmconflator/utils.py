@@ -23,10 +23,9 @@ def conflate_features(input_features, osm_features, remove_conflated=False):
             if input_geometry.equals(osm_geometry):
                 duplicate = True
                 intersect = True  # Treat duplicates as intersecting as well
-                break
             elif input_geometry.intersects(osm_geometry):
                 intersect = True
-                break
+
         input_feature["properties"]["duplicate"] = duplicate
         input_feature["properties"]["intersect"] = intersect
 
