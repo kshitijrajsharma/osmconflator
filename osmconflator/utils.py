@@ -2,10 +2,11 @@ import json
 
 from shapely.geometry import shape
 from shapely.ops import unary_union
+from shapely.validation import make_valid
 
 
 def calculate_bbox(features):
-    geometries = [shape(feature["geometry"]) for feature in features]
+    geometries = [make_valid(shape(feature["geometry"])) for feature in features]
     union = unary_union(geometries)
     bbox = union.bounds
     return bbox
