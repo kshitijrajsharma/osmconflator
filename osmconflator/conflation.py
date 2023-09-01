@@ -41,7 +41,7 @@ def validate_geojson(geojson_str):
     return geojson
 
 
-def conflate_geojson(geojson_str, remove_conflated=False):
+def conflate_geojson(geojson_str, remove_conflated=False, api_url='https://raw-data-api0.hotosm.org/v1'):
     """
     Conflates the input GeoJSON with OpenStreetMap data.
 
@@ -69,7 +69,7 @@ def conflate_geojson(geojson_str, remove_conflated=False):
     bbox_geojson_str = json.dumps(bbox_geometry.__geo_interface__)
     # with open("bbox.geojson", "w") as file:
     #     file.write(bbox_geojson_str)
-    api = RawDataAPI()
+    api = RawDataAPI(api_url)
     snapshot_data = api.request_snapshot(bbox_geojson_str)
     task_link = snapshot_data["track_link"]
     logger.info(f"Fetching latest OSM snapshot")

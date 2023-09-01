@@ -8,7 +8,8 @@ import requests
 
 
 class RawDataAPI:
-    BASE_API_URL = "https://raw-data-api0.hotosm.org/v1"
+    def __init__(self, BASE_API_URL):
+        self.BASE_API_URL = BASE_API_URL
 
     def request_snapshot(self, geometry):
         headers = {"accept": "application/json", "Content-Type": "application/json"}
