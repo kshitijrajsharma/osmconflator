@@ -41,7 +41,7 @@ def validate_geojson(geojson_str):
     return geojson
 
 
-def conflate_geojson(geojson_str, remove_conflated=False, api_url='https://raw-data-api0.hotosm.org/v1'):
+def conflate_geojson(geojson_str, remove_conflated=False, api_url='https://api-prod.raw-data.hotosm.org/v1'):
     """
     Conflates the input GeoJSON with OpenStreetMap data.
 
