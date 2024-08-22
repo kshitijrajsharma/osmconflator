@@ -40,5 +40,5 @@ class RawDataAPI:
         response = requests.get(download_url)
         response.raise_for_status()
         with zipfile.ZipFile(io.BytesIO(response.content), "r") as zip_ref:
-            with zip_ref.open("Export.geojson") as file:
+            with zip_ref.open("RawExport.geojson") as file:
                 return json.load(file)
